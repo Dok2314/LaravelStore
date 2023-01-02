@@ -6,7 +6,7 @@
     <div class="starter-template">
         @foreach($categories as $category)
             <div class="panel">
-                <a href="{{ $category->slug }}">
+                <a href="{{ route('category', $category->slug) }}">
                     <img src="">
                     <h2>{{ $category->name }}</h2>
                 </a>

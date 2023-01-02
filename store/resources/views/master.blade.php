@@ -24,12 +24,12 @@
                 <li ><a href="{{ route('categories') }}">Категории</a>
                 </li>
                 <li ><a href="{{ route('basket') }}">В корзину</a></li>
-                <li><a href="">Сбросить проект в начальное состояние</a></li>
+                <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="">Панель администратора</a></li>
-            </ul>
+{{--            <ul class="nav navbar-nav navbar-right">--}}
+{{--                <li><a href="">Панель администратора</a></li>--}}
+{{--            </ul>--}}
         </div>
     </div>
 </nav>

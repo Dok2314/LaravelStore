@@ -3,25 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $products = Product::get();
+
+        return view('index', compact('products'));
     }
 
     public function categories()
     {
-        $categories = Category::all();
+        $categories = Category::get();
 
         return view('categories', compact('categories'));
     }
 
-    public function product($product)
+    public function product(Category $category, Product $product)
     {
-        return view('product', compact('product'));
+        return view('product', compact('category', 'product'));
     }
 
     public function category(Category $category)
