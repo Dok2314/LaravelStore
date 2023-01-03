@@ -10,6 +10,8 @@ Route::get('/basket', [C\BasketController::class, 'basket'])->name('basket');
 
 Route::get('/basket/place', [C\BasketController::class, 'basketPlace'])->name('basket-place');
 
+Route::post('/basket/confirm', [C\BasketController::class, 'basketConfirm'])->name('basket-confirm');
+
 Route::get('/{category:slug}', [C\MainController::class, 'category'])->name('category');
 
 Route::get('/{category:slug}/{product:slug}', [C\MainController::class, 'product'])->name('product');
