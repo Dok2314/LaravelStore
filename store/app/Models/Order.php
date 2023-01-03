@@ -11,6 +11,19 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'order_product', 'product_id', 'order_id');
+        return $this->belongsToMany(Product::class, 'order_product', 'product_id', 'order_id')
+            ->withPivot('count')
+            ->withTimestamps();
+    }
+
+    public function getFullPrice()
+    {
+        $sum = 0;
+
+        foreach ($this->products as $product) {
+            $sum += $product->getPriceForCount();
+        }
+
+        return $sum;
     }
 }

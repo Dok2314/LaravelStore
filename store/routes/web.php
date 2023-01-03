@@ -15,3 +15,4 @@ Route::get('/{category:slug}', [C\MainController::class, 'category'])->name('cat
 Route::get('/{category:slug}/{product:slug}', [C\MainController::class, 'product'])->name('product');
 
 Route::post('/basket/add/{product_id}', [C\BasketController::class, 'basketAdd'])->name('basket-add');
+Route::post('/basket/remove/{product_id}', [C\BasketController::class, 'basketRemove'])->name('basket-remove');
