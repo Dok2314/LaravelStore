@@ -25,6 +25,24 @@
                 </li>
                 <li ><a href="{{ route('basket') }}">В корзину</a></li>
                 <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
+                <li>
+                    @auth
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                            {{ __('Выйти') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    @endauth
+                    @guest
+                            <a class="dropdown-item" href="{{ route('login') }}">
+                                {{ __('Войти') }}
+                            </a>
+                        @endguest
+                </li>
             </ul>
 
 {{--            <ul class="nav navbar-nav navbar-right">--}}
