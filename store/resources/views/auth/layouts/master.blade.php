@@ -30,10 +30,10 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a
-                            href="admin/categories">Категории</a></li>
-                    <li><a href="admin/products">Товары</a>
+                            href="{{ route('categories.index') }}">Категории</a></li>
+                    <li><a href="{{ route('products.index') }}">Товары</a>
                     </li>
-                    <li><a href="admin/orders">Заказы</a></li>
+                    <li><a href="{{ route('home') }}">Заказы</a></li>
                 </ul>
 
                 @guest
@@ -71,6 +71,12 @@
     <div class="py-4">
         <div class="container">
             <div class="row justify-content-center">
+                @if(session()->has('success'))
+                    <p class="alert alert-success">{{ session()->get('success') }}</p>
+                @endif
+                @if(session()->has('warning'))
+                    <p class="alert alert-warning">{{ session()->get('warning') }}</p>
+                @endif
                 @yield('content')
             </div>
         </div>
