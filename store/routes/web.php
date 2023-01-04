@@ -1,14 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers as C;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
-Auth::routes();
+Auth::routes([
+    'reset'   => false,
+    'confirm' => false,
+    'verify'  => false,
+]);
 
 Route::get('/', [C\MainController::class, 'index'])->name('index');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/orders', [C\Admin\OrderController::class, 'index'])->name('home');
+
     Route::get('/categories', [C\MainController::class, 'categories'])->name('categories');
 
     Route::get('/basket', [C\BasketController::class, 'basket'])->name('basket');

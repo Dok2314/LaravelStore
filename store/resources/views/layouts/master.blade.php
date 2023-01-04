@@ -27,6 +27,13 @@
                 <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
                 <li>
                     @auth
+                        <a class="dropdown-item" href="{{ route('home') }}">
+                            {{ __('Панель администратора') }}
+                        </a>
+                    @endauth
+                </li>
+                <li>
+                    @auth
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
