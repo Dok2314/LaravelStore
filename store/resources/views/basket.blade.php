@@ -52,8 +52,10 @@
             </tbody>
         </table>
         <br>
-        <div class="btn-group pull-right" role="group">
-            <a type="button" class="btn btn-success" href="{{ route('basket-place') }}">Оформить заказ</a>
-        </div>
+        @if($order->products->count() > 0)
+            <div class="btn-group pull-right" role="group">
+                <a type="button" class="btn btn-success" href="{{ route('basket-place') }}">Оформить заказ</a>
+            </div>
+        @endif
     </div>
 @endsection

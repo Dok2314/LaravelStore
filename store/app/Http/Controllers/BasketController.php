@@ -15,7 +15,7 @@ class BasketController extends Controller
         if(!is_null($orderId)) {
             $order = Order::findOrFail($orderId);
         } else {
-            return redirect()->back()->with('warning', 'Сначала сделайте заказ!');
+            return redirect()->route('index')->with('warning', 'Ваша корзина пуста!');
         }
 
         return view('basket', compact('order'));
@@ -39,7 +39,9 @@ class BasketController extends Controller
         $orderId = session('orderId');
 
         if(is_null($orderId)) {
-            $order = Order::create();
+            $order = Order::create([
+                'user_id' => auth()->id()
+            ]);
             session(['orderId' => $order->id]);
         } else {
             $order = Order::find($orderId);
@@ -97,7 +99,7 @@ class BasketController extends Controller
         }
 
         $order = Order::find($orderId);
-        $success = $order->saveOrder($request->name, $request->phone);
+        $success = $order->saveOrder($request->phone);
 
         if($success) {
             session()->flash('success', 'Ваш заказ принят в разработку!');

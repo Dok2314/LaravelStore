@@ -10,6 +10,12 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'status',
+        'phone',
+        'user_id',
+    ];
+
     public function products()
     {
         return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')
@@ -28,10 +34,9 @@ class Order extends Model
         return $sum;
     }
 
-    public function saveOrder($name, $phone)
+    public function saveOrder($phone)
     {
         if($this->status == 0) {
-            $this->name   = $name;
             $this->phone  = $phone;
             $this->status = 1;
             $this->save();
@@ -42,5 +47,10 @@ class Order extends Model
         }
 
         return false;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
