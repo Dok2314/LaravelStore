@@ -27,9 +27,11 @@
                 <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
                 <li>
                     @auth
-                        <a class="dropdown-item" href="{{ route('home') }}">
-                            {{ __('Панель администратора') }}
-                        </a>
+                        @if(auth()->user()->isAdmin())
+                            <a class="dropdown-item" href="{{ route('home') }}">
+                                {{ __('Панель администратора') }}
+                            </a>
+                        @endif
                     @endauth
                 </li>
                 <li>

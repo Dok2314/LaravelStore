@@ -10,17 +10,9 @@
             <form action="{{ route('basket-confirm') }}" method="POST">
                 @csrf
                 <div>
-                    <p>Укажите свои имя и номер телефона, чтобы наш менеджер мог с вами связаться:</p>
+                    <p>Укажите свой номер телефона, чтобы наш менеджер мог с вами связаться:</p>
 
                     <div class="container">
-                        <div class="form-group">
-                            <label for="name" class="control-label col-lg-offset-3 col-lg-2">Имя: </label>
-                            <div class="col-lg-4">
-                                <input type="text" name="name" id="name" value="" class="form-control">
-                            </div>
-                        </div>
-                        <br>
-                        <br>
                         <div class="form-group">
                             <label for="phone" class="control-label col-lg-offset-3 col-lg-2">Номер
                                 телефона: </label>
