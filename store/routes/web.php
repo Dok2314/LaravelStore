@@ -16,6 +16,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'admin'], function () {
         Route::resource('categories', C\Admin\CategoryController::class);
+        Route::resource('products', C\Admin\ProductController::class);
 
         Route::group(['middleware' => 'is_admin'], function() {
             Route::get('/orders', [C\Admin\OrderController::class, 'index'])->name('home');
