@@ -14,14 +14,18 @@ Route::get('/', [C\MainController::class, 'index'])->name('index');
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::group(['middleware' => 'is_admin'], function() {
-        Route::get('/orders', [C\Admin\OrderController::class, 'index'])->name('home');
+    Route::group(['prefix' => 'admin'], function () {
+        Route::resource('categories', C\Admin\CategoryController::class);
+
+        Route::group(['middleware' => 'is_admin'], function() {
+            Route::get('/orders', [C\Admin\OrderController::class, 'index'])->name('home');
+        });
     });
 
     Route::group(['prefix' => 'basket'], function () {
         Route::post('/add/{product_id}', [C\BasketController::class, 'basketAdd'])->name('basket-add');
 
-        Route::group(['middleware' => 'basket_not_empty', 'prefix' => 'basket'], function () {
+        Route::group(['middleware' => 'basket_not_empty'], function () {
             Route::get('/', [C\BasketController::class, 'basket'])->name('basket');
             Route::get('/place', [C\BasketController::class, 'basketPlace'])->name('basket-place');
             Route::post('/confirm', [C\BasketController::class, 'basketConfirm'])->name('basket-confirm');
