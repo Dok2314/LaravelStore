@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -34,17 +36,25 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CategoryRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        Category::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'description' => $request->description,
+        $path = null;
+
+        if($request->has('image')) {
+            $path = $request->file('image')->store('categories');
+        }
+
+        $category = Category::create([
+            'name'          => $request->name,
+            'slug'          => $request->slug,
+            'description'   => $request->description,
+            'image'         => $path,
         ]);
 
+        session()->flash('success', 'Категория успешно добавлена: ' . $category->name);
         return redirect()->route('categories.index');
     }
 
@@ -73,16 +83,27 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CategoryRequest  $request
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
+        $path = $category->image ?? null;
+
+        if($request->has('image')) {
+            if(isset($path)) {
+                Storage::delete($category->image);
+            }
+
+            $path = $request->file('image')->store('categories');
+        }
+
         $category->update([
             'name'        => $request->name,
-            'slug'        => Str::slug($request->name),
+            'slug'        => $request->slug,
             'description' => $request->description,
+            'image'       => $path,
         ]);
 
         session()->flash('success', 'Категория успешно обновлена: ' . $category->name);

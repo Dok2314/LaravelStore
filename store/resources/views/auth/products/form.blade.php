@@ -30,17 +30,44 @@
                     <div class="col-sm-6" style="margin-left: 7px;">
                         <input type="text" class="form-control" name="name" id="name"
                                value="@isset($product){{ $product->name }}@endisset" style="width: 500px;">
+                        @error('name')
+                            <div>
+                                <span class="text-danger">{{ $message }}</span>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <br>
+                    <div class="input-group row">
+                        <label for="name" class="col-sm-2 col-form-label">Slug: </label>
+                        <div class="col-sm-6" style="margin-left: 7px;">
+                            <input type="text" class="form-control" name="slug" id="name"
+                                   value="@isset($product){{ $product->slug }}@endisset" style="width: 500px;">
+                            @error('slug')
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <br>
                 <div class="input-group row">
                     <label for="category_id" class="col-sm-2 col-form-label">Категория: </label>
                     <div class="col-sm-6" style="margin-left: 25px; width: 400px;">
                         <select name="category_id" id="category_id" class="form-control">
-                            <option value="1">Мобильные телефоны</option>
-                            <option value="2">Портативная техника</option>
-                            <option value="3">Бытовая техника</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    @isset($product)
+                                        {{ $category->id == $product->category->id ? 'selected' : '' }}
+                                    @endisset
+                                >{{ $category->name }}</option>
+                            @endforeach
                         </select>
+                        @error('category_id')
+                            <div>
+                                <span class="text-danger">{{ $message }}</span>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <br>
@@ -48,7 +75,13 @@
                     <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                     <div class="col-sm-6">
 								<textarea name="description" id="description" cols="72"
-                                          rows="7">@isset($product){{ $product->description }}@endisset</textarea>
+                                          rows="7">@isset($product){{ $product->description }}@endisset
+                                </textarea>
+                        @error('description')
+                            <div>
+                                <span class="text-danger">{{ $message }}</span>
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <br>
@@ -68,6 +101,11 @@
                                value="@isset($product){{ $product->price }}@endisset" style="width: 500px; margin-right: 60px;">
                     </div>
                 </div>
+                    @error('price')
+                        <div>
+                            <span class="text-danger" style="margin-left: 110px;">{{ $message }}</span>
+                        </div>
+                    @enderror
                     <hr>
                 <button class="btn btn-success">Сохранить</button>
             </div>

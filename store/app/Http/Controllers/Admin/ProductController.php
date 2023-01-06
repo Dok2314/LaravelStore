@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -27,24 +30,34 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('auth.products.form');
+        $categories = Category::get();
+
+        return view('auth.products.form', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
+        $path = null;
+
+        if($request->has('image')) {
+            $path = $request->file('image')->store('products');
+        }
+
         $product = Product::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'description' => $request->description,
-            'price' => $request->price,
-            'category_id' => $request->category_id,
+            'name'          => $request->name,
+            'slug'          => $request->slug,
+            'description'   => $request->description,
+            'price'         => $request->price,
+            'category_id'   => $request->category_id,
+            'image'         => $path,
         ]);
+
         session()->flash('success', 'Товар успешно добавлен: ' . $product->name);
         return redirect()->route('products.index');
     }
@@ -68,24 +81,37 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('auth.products.form', compact('product'));
+        $categories = Category::get();
+
+        return view('auth.products.form', compact('product','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ProductRequest  $request
      * @param  Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
+        $path = $product->image ?? null;
+
+        if($request->has('image')) {
+            if(isset($path)) {
+                Storage::delete($product->image);
+            }
+
+            $path = $request->file('image')->store('products');
+        }
+
         $product->update([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'description' => $request->description,
-            'price' => $request->price,
-            'category_id' => $request->category_id,
+            'name'          => $request->name,
+            'slug'          => $request->slug,
+            'description'   => $request->description,
+            'price'         => $request->price,
+            'category_id'   => $request->category_id,
+            'image'         => $path,
         ]);
 
         session()->flash('success', 'Товар успешно обновлен: ' . $product->name);

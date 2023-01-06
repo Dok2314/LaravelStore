@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-        <img src="" alt="">
+        <img src="{{ \Illuminate\Support\Facades\Storage::url($product->image) }}" alt="">
         <div class="caption">
             <h3>{{ $product->name }}</h3>
             <p>{{ $product->price }} руб.</p>

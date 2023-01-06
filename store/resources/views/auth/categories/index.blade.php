@@ -12,7 +12,7 @@
                     #
                 </th>
                 <th>
-                    Код
+                    Slug
                 </th>
                 <th>
                     Название
@@ -24,7 +24,7 @@
             @foreach($categories as $category)
                 <tr>
                     <td>{{ $category->id }}</td>
-                    <td>{{ $category->code }}</td>
+                    <td>{{ $category->slug }}</td>
                     <td>{{ $category->name }}</td>
                     <td>
                         <div class="btn-group" role="group">
