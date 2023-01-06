@@ -31,14 +31,36 @@
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="name" id="name" style="margin-left: 20px; width: 500px;"
                                value="@isset($category){{ $category->name }}@endisset">
+                        <div>
+                            @error('name')
+                                <span class="text-danger" style="margin-left: 20px;">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <br>
+                    <div class="input-group row">
+                        <label for="name" class="col-sm-2 col-form-label">Slug: </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="slug" id="slug" style="margin-left: 20px; width: 500px;"
+                                   value="@isset($category){{ $category->slug }}@endisset">
+                            <div>
+                                @error('slug')
+                                    <span class="text-danger" style="margin-left: 20px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <br>
                 <div class="input-group row">
                     <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                     <div class="col-sm-6">
 							<textarea name="description" id="description" cols="72"
-                                      rows="7">@isset($category){{ $category->description }}@endisset</textarea>
+                                      rows="7">@isset($category){{ $category->description }}@endisset
+                            </textarea>
+                        @error('description')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <br>
