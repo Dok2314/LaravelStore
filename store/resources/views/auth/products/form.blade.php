@@ -38,7 +38,11 @@
                     <div class="col-sm-6" style="margin-left: 25px; width: 400px;">
                         <select name="category_id" id="category_id" class="form-control">
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ $category->id == $product->category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                <option value="{{ $category->id }}"
+                                    @isset($product)
+                                        {{ $category->id == $product->category->id ? 'selected' : '' }}
+                                    @endisset
+                                >{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>

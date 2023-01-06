@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -41,13 +42,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $path = null;
+
+        if($request->has('image')) {
+            $path = $request->file('image')->store('products');
+        }
+
         $product = Product::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category_id,
+            'image' => $path,
         ]);
+
         session()->flash('success', 'Товар успешно добавлен: ' . $product->name);
         return redirect()->route('products.index');
     }
@@ -85,12 +94,23 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $path = $product->image ?? null;
+
+        if($request->has('image')) {
+            if(isset($path)) {
+                Storage::delete($product->image);
+            }
+
+            $path = $request->file('image')->store('products');
+        }
+
         $product->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category_id,
+            'image' => $path,
         ]);
 
         session()->flash('success', 'Товар успешно обновлен: ' . $product->name);

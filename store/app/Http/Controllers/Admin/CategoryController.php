@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -39,12 +40,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create([
+        $path = null;
+
+        if($request->has('image')) {
+            $path = $request->file('image')->store('categories');
+        }
+
+        $category = Category::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
+            'image' => $path,
         ]);
 
+        session()->flash('success', 'Категория успешно добавлена: ' . $category->name);
         return redirect()->route('categories.index');
     }
 
@@ -79,10 +88,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $path = $category->image ?? null;
+
+        if($request->has('image')) {
+            if(isset($path)) {
+                Storage::delete($category->image);
+            }
+
+            $path = $request->file('image')->store('categories');
+        }
+
         $category->update([
             'name'        => $request->name,
             'slug'        => Str::slug($request->name),
             'description' => $request->description,
+            'image'       => $path,
         ]);
 
         session()->flash('success', 'Категория успешно обновлена: ' . $category->name);
