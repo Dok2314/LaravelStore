@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -37,7 +38,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
+        $product = Product::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'description' => $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+        ]);
+        session()->flash('success', 'Товар успешно добавлен: ' . $product->name);
         return redirect()->route('products.index');
     }
 
@@ -72,7 +80,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
+        $product->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'description' => $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+        ]);
 
         session()->flash('success', 'Товар успешно обновлен: ' . $product->name);
         return redirect()->route('products.index');
@@ -86,6 +100,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        session()->flash('success', 'Товар успешно удалён: ' . $product->name);
         $product->delete();
         return redirect()->route('products.index');
     }

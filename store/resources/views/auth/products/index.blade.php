@@ -12,7 +12,7 @@
                     #
                 </th>
                 <th>
-                    Код
+                    Slug
                 </th>
                 <th>
                     Название
@@ -30,7 +30,7 @@
             @foreach($products as $product)
                 <tr>
                     <td>{{ $product->id}}</td>
-                    <td>{{ $product->code }}</td>
+                    <td>{{ $product->slug }}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->name }}</td>
                     <td>{{ $product->price }}</td>
