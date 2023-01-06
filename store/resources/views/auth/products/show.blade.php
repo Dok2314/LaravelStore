@@ -20,8 +20,8 @@
                 <td>{{ $product->id}}</td>
             </tr>
             <tr>
-                <td>Код</td>
-                <td>{{ $product->code }}</td>
+                <td>Slug</td>
+                <td>{{ $product->slug }}</td>
             </tr>
             <tr>
                 <td>Название</td>
