@@ -10,6 +10,8 @@ Auth::routes([
     'verify'  => false,
 ]);
 
+Route::get('reset', [C\ResetController::class, 'reset'])->name('reset_db');
+
 Route::get('/', [C\MainController::class, 'index'])->name('index');
 
 Route::group(['middleware' => 'auth'], function () {
