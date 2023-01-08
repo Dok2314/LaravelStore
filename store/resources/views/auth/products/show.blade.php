@@ -46,7 +46,7 @@
                         <span class="badge badge-success">Новинка</span>
                     @endif
                     @if($product->isRecommend())
-                        <span class="badge badge-warning">Рекомендуемые</span>
+                        <span class="badge badge-warning">Рекомендуем</span>
                     @endif
                     @if($product->isHit())
                         <span class="badge badge-danger">Хит продаж!</span>
