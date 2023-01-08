@@ -31,11 +31,7 @@
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="name" id="name" style="margin-left: 20px; width: 500px;"
                                value="{{ old('name') }}@isset($category){{ $category->name }}@endisset">
-                        <div>
-                            @error('name')
-                                <span class="text-danger" style="margin-left: 20px;">{{ $message }}</span>
-                            @enderror
-                        </div>
+                        @include('auth.layouts.error', ['fieldName' => 'name'])
                     </div>
                 </div>
                 <br>
@@ -44,11 +40,7 @@
                         <div class="col-sm-6">
                             <input type="text" class="form-control" name="slug" id="slug" style="margin-left: 20px; width: 500px;"
                                    value="{{ old('slug') }}@isset($category){{ $category->slug }}@endisset">
-                            <div>
-                                @error('slug')
-                                    <span class="text-danger" style="margin-left: 20px;">{{ $message }}</span>
-                                @enderror
-                            </div>
+                            @include('auth.layouts.error', ['fieldName' => 'slug'])
                         </div>
                     </div>
                     <br>
@@ -58,9 +50,7 @@
 							<textarea name="description" id="description" cols="72"
                                       rows="7">{{ old('description') }}@isset($category){{ $category->description }}@endisset
                             </textarea>
-                        @error('description')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        @include('auth.layouts.error', ['fieldName' => 'description'])
                     </div>
                 </div>
                 <br>
