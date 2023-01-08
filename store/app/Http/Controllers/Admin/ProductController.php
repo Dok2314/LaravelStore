@@ -56,6 +56,9 @@ class ProductController extends Controller
             'price'         => $request->price,
             'category_id'   => $request->category_id,
             'image'         => $path,
+            'hit'           => $request->hit,
+            'new'           => $request->new,
+            'recommend'     => $request->recommend,
         ]);
 
         session()->flash('success', 'Товар успешно добавлен: ' . $product->name);
@@ -112,6 +115,9 @@ class ProductController extends Controller
             'price'         => $request->price,
             'category_id'   => $request->category_id,
             'image'         => $path,
+            'hit'           => $request->hit,
+            'new'           => $request->new,
+            'recommend'     => $request->recommend,
         ]);
 
         session()->flash('success', 'Товар успешно обновлен: ' . $product->name);

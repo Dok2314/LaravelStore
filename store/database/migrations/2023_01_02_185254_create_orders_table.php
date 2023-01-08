@@ -18,6 +18,10 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0);
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->timestamps();
         });
     }

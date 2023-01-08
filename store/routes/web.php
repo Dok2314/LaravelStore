@@ -10,9 +10,16 @@ Auth::routes([
     'verify'  => false,
 ]);
 
+Route::get('reset', [C\ResetController::class, 'reset'])->name('reset_db');
+
 Route::get('/', [C\MainController::class, 'index'])->name('index');
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::group(['prefix' => 'person', 'as' => 'person.'], function () {
+        Route::get('/orders', [C\Person\OrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}',[C\Person\OrderController::class, 'show'])->name('orders.show');
+    });
 
     Route::group(['prefix' => 'admin'], function () {
         Route::resource('categories', C\Admin\CategoryController::class);
@@ -20,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['middleware' => 'is_admin'], function() {
             Route::get('/orders', [C\Admin\OrderController::class, 'index'])->name('home');
+            Route::get('/orders/{order}', [C\Admin\OrderController::class, 'show'])->name('orders.show');
         });
     });
 

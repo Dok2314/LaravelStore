@@ -29,25 +29,17 @@
                     <label for="name" class="col-sm-2 col-form-label">Название: </label>
                     <div class="col-sm-6" style="margin-left: 7px;">
                         <input type="text" class="form-control" name="name" id="name"
-                               value="@isset($product){{ $product->name }}@endisset" style="width: 500px;">
-                        @error('name')
-                            <div>
-                                <span class="text-danger">{{ $message }}</span>
-                            </div>
-                        @enderror
+                               value="{{ old('name') }}@isset($product){{ $product->name }}@endisset" style="width: 500px;">
+                        @include('auth.layouts.error', ['fieldName' => 'name'])
                     </div>
                 </div>
                 <br>
                     <div class="input-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Slug: </label>
+                        <label for="slug" class="col-sm-2 col-form-label">Slug: </label>
                         <div class="col-sm-6" style="margin-left: 7px;">
-                            <input type="text" class="form-control" name="slug" id="name"
-                                   value="@isset($product){{ $product->slug }}@endisset" style="width: 500px;">
-                            @error('slug')
-                                <div>
-                                    <span class="text-danger">{{ $message }}</span>
-                                </div>
-                            @enderror
+                            <input type="text" class="form-control" name="slug" id="slug"
+                                   value="{{ old('slug') }}@isset($product){{ $product->slug }}@endisset" style="width: 500px;">
+                            @include('auth.layouts.error', ['fieldName' => 'slug'])
                         </div>
                     </div>
                     <br>
@@ -63,11 +55,7 @@
                                 >{{ $category->name }}</option>
                             @endforeach
                         </select>
-                        @error('category_id')
-                            <div>
-                                <span class="text-danger">{{ $message }}</span>
-                            </div>
-                        @enderror
+                        @include('auth.layouts.error', ['fieldName' => 'category_id'])
                     </div>
                 </div>
                 <br>
@@ -75,13 +63,9 @@
                     <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                     <div class="col-sm-6">
 								<textarea name="description" id="description" cols="72"
-                                          rows="7">@isset($product){{ $product->description }}@endisset
+                                          rows="7">{{ old('description') }}@isset($product){{ $product->description }}@endisset
                                 </textarea>
-                        @error('description')
-                            <div>
-                                <span class="text-danger">{{ $message }}</span>
-                            </div>
-                        @enderror
+                        @include('auth.layouts.error', ['fieldName' => 'description'])
                     </div>
                 </div>
                 <br>
@@ -98,15 +82,29 @@
                     <label for="price" class="col-sm-2 col-form-label">Цена: </label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="price" id="price"
-                               value="@isset($product){{ $product->price }}@endisset" style="width: 500px; margin-right: 60px;">
+                               value="{{ old('price') }}@isset($product){{ $product->price }}@endisset" style="width: 500px; margin-right: 60px;">
                     </div>
                 </div>
-                    @error('price')
-                        <div>
-                            <span class="text-danger" style="margin-left: 110px;">{{ $message }}</span>
-                        </div>
-                    @enderror
+                    @include('auth.layouts.error', ['fieldName' => 'price'])
                     <hr>
+                    @foreach([
+                        'hit' => 'Хит',
+                        'new' => 'Новинка',
+                        'recommend' => 'Рекомендуемые'
+                    ] as $field => $title)
+                        <div class="input-group row">
+                            <div class="form-group">
+                                <label for="{{ $field }}">{{ $title }}: </label>
+                                <input type="checkbox" name="{{ $field }}" id="{{ $field }}"
+                                       @if(isset($product) && $product->$field === 1)
+                                           checked="checked"
+                                       @endif
+                                >
+                            </div>
+                           @include('auth.layouts.error', ['fieldName' => $field])
+                        </div>
+                        <br>
+                    @endforeach
                 <button class="btn btn-success">Сохранить</button>
             </div>
         </form>
