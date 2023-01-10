@@ -22,7 +22,10 @@ class ProductTableSeeder extends Seeder
                'description'  => 'Великолепное устройство от Apple!',
                'price'        => '55000',
                'category_id'  => 1,
-               'image'        => 'products/iphone11.jpeg'
+               'image'        => 'products/iphone11.jpeg',
+               'new'          => 1,
+               'hit'          => 1,
+               'recommend'    => 0,
            ],
             [
                 'name'         => 'Iphone 14 Pro Max',
@@ -31,6 +34,9 @@ class ProductTableSeeder extends Seeder
                 'price'        => '155000',
                 'category_id'  => 1,
                 'image'        => 'products/iphone14.jpg',
+                'new'          => 1,
+                'hit'          => 1,
+                'recommend'    => 0,
             ],
             [
                 'name'         => 'Наушники Monster Beats',
@@ -39,6 +45,9 @@ class ProductTableSeeder extends Seeder
                 'price'        => '49000',
                 'category_id'  => 2,
                 'image'        => 'products/monster-beats.jpeg',
+                'new'          => 1,
+                'hit'          => 1,
+                'recommend'    => 1,
             ],
             [
                 'name'         => 'Стиральная машина Bosh',
@@ -47,6 +56,9 @@ class ProductTableSeeder extends Seeder
                 'price'        => '35000',
                 'category_id'  => 3,
                 'image'        => 'products/bosch.jpeg',
+                'new'          => 0,
+                'hit'          => 1,
+                'recommend'    => 1
             ],
         ]);
     }

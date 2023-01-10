@@ -44,4 +44,5 @@
             Добавить категорию
         </a>
     </div>
+    {{ $categories->withQueryString()->links('vendor.pagination.bootstrap-4') }}
 @endsection
