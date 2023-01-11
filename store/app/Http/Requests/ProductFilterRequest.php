@@ -13,17 +13,10 @@ class ProductFilterRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [];
-
-        if($this->price_from) {
-            $rules['price_from'] = ['numeric', 'min:0'];
-        }
-
-        if($this->price_to) {
-            $rules['price_to'] = ['numeric', 'min:0'];
-        }
-
-        return $rules;
+        return [
+            'price_from' => ['nullable', 'numeric', 'min:0'],
+            'price_to'   => ['nullable', 'numeric', 'min:0'],
+        ];
     }
 
     public function messages()

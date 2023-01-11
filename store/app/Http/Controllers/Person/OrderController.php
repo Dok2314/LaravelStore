@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = auth()->user()->orders()->where('status', 1)->get();
+        $orders = auth()->user()->orders()->active()->get();
 
         return view('auth.orders.index', compact('orders'));
     }

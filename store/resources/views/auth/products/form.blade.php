@@ -80,12 +80,22 @@
                 <br>
                 <div class="input-group row">
                     <label for="price" class="col-sm-2 col-form-label">Цена: </label>
+                    @include('auth.layouts.error', ['fieldName' => 'price'])
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="price" id="price"
                                value="{{ old('price') }}@isset($product){{ $product->price }}@endisset" style="width: 500px; margin-right: 60px;">
                     </div>
                 </div>
-                    @include('auth.layouts.error', ['fieldName' => 'price'])
+                <br>
+                <div class="input-group row">
+                    <label for="count" class="col-sm-2 col-form-label">Количество: </label>
+                    @include('auth.layouts.error', ['fieldName' => 'count'])
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" name="count" id="count"
+                               value="{{ old('count') }}@isset($product){{ $product->count }}@endisset" style="width: 500px; margin-right: 10px;">
+                        <br>
+                    </div>
+                </div>
                     <hr>
                     @foreach([
                         'hit' => 'Хит',

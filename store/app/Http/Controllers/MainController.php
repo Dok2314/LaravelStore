@@ -24,7 +24,7 @@ class MainController extends Controller
 
         foreach (['hit', 'recommend', 'new'] as $fieldName) {
             if($request->has($fieldName)) {
-                $productsQuery->where($fieldName, 1);
+                $productsQuery->$fieldName();
             }
         }
 
@@ -42,6 +42,8 @@ class MainController extends Controller
 
     public function product(Category $category, Product $product)
     {
+        dd('test');
+
         return view('product', compact('category', 'product'));
     }
 

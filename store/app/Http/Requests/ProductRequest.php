@@ -17,6 +17,7 @@ class ProductRequest extends FormRequest
             'name'        => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:5', 'max:500'],
             'price'       => ['required', 'numeric', 'min:1'],
+            'count'       => ['required', 'numeric', 'min:0'],
             'category_id' => ['required'],
         ];
 
@@ -41,6 +42,9 @@ class ProductRequest extends FormRequest
             'price.required'       => 'Поле обязательное для заполнения!',
             'price.numeric'        => 'Поле должно быть целочисленного типа!',
             'price.min'            => 'Значение поля должно быть не менее 1!',
+            'count.required'       => 'Поле обязательное для заполнения!',
+            'count.numeric'        => 'Поле должно быть целочисленного типа!',
+            'count.min'            => 'Значение поля должно быть не менее 0!',
             'category_id.required' => 'Поле обязательное для заполнения!',
         ];
     }
