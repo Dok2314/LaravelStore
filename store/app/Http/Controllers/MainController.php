@@ -42,8 +42,6 @@ class MainController extends Controller
 
     public function product(Category $category, Product $product)
     {
-        dd('test');
-
         return view('product', compact('category', 'product'));
     }
 

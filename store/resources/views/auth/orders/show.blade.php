@@ -23,7 +23,7 @@
                         @foreach ($products as $product)
                             <tr>
                                 <td>
-                                    <a href="{{ route('products.show', $product) }}">
+                                    <a href="{{ route('products.show', $product->id) }}">
                                         <img height="56px"
                                              src="{{ \Illuminate\Support\Facades\Storage::url($product->image) }}">
                                         {{ $product->name }}

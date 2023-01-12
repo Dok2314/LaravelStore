@@ -32,13 +32,13 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'basket'], function () {
-        Route::post('/add/{product_id}', [C\BasketController::class, 'basketAdd'])->name('basket-add');
+        Route::post('/add/{product}', [C\BasketController::class, 'basketAdd'])->name('basket-add');
 
         Route::group(['middleware' => 'basket_not_empty'], function () {
             Route::get('/', [C\BasketController::class, 'basket'])->name('basket');
             Route::get('/place', [C\BasketController::class, 'basketPlace'])->name('basket-place');
             Route::post('/confirm', [C\BasketController::class, 'basketConfirm'])->name('basket-confirm');
-            Route::post('/remove/{product_id}', [C\BasketController::class, 'basketRemove'])->name('basket-remove');
+            Route::post('/remove/{product}', [C\BasketController::class, 'basketRemove'])->name('basket-remove');
         });
     });
 

@@ -70,11 +70,13 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  $productId
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($productId)
     {
+        $product = Product::withTrashed()->find($productId);
+
         return view('auth.products.show', compact('product'));
     }
 
