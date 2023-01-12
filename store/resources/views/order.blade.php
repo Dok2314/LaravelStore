@@ -14,6 +14,15 @@
 
                     <div class="container">
                         <div class="form-group">
+                            <label for="email" class="control-label col-lg-offset-3 col-lg-2">Email: </label>
+                            <div class="col-lg-4">
+                                <input type="email" name="email" id="email" value="" class="form-control" placeholder="example@gmail.com">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <div class="form-group">
                             <label for="phone" class="control-label col-lg-offset-3 col-lg-2">Номер
                                 телефона: </label>
                             <div class="col-lg-4">

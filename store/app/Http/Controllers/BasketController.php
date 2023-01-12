@@ -53,7 +53,7 @@ class BasketController extends Controller
 
     public function basketConfirm(Request $request)
     {
-        if((new Basket)->saveOrder($request->phone)) {
+        if((new Basket)->saveOrder($request->phone, $request->email)) {
             session()->flash('success', 'Ваш заказ принят в разработку!');
         } else {
             session()->flash('warning', 'Товар не доступен для заказа!');

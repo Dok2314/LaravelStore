@@ -12,6 +12,9 @@
                     #
                 </th>
                 <th>
+                    Email
+                </th>
+                <th>
                     Имя
                 </th>
                 <th>
@@ -30,6 +33,7 @@
             @foreach($orders as $order)
                 <tr>
                     <td>{{ $order->id}}</td>
+                    <td>{{ $order->email }}</td>
                     <td>{{ $order->user->name }}</td>
                     <td>{{ $order->phone }}</td>
                     <td>{{ $order->created_at->format('H:i d/m/Y') }}</td>
