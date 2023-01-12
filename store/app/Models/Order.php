@@ -14,6 +14,7 @@ class Order extends Model
         'status',
         'phone',
         'user_id',
+        'email',
     ];
 
     public function products()
@@ -45,10 +46,11 @@ class Order extends Model
         session(['full_order_sum' => $sum]);
     }
 
-    public function saveOrder($phone)
+    public function saveOrder($phone, $email)
     {
         if($this->status == 0) {
             $this->phone  = $phone;
+            $this->email  = $email;
             $this->status = 1;
             $this->save();
 
