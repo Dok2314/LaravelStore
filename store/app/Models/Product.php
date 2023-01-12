@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name', 'slug', 'price', 'category_id', 'description', 'image',
-        'new', 'hit', 'recommend'
+        'new', 'hit', 'recommend', 'count'
     ];
 
     public function category()
@@ -78,5 +79,25 @@ class Product extends Model
         return Attribute::make(
             set: fn ($value) => (bool)$value,
         );
+    }
+
+    public function scopeHit($query)
+    {
+        return $query->where('hit', 1);
+    }
+
+    public function scopeNew($query)
+    {
+        return $query->where('new', 1);
+    }
+
+    public function scopeRecommend($query)
+    {
+        return $query->where('recommend', 1);
+    }
+
+    public function isAvailable()
+    {
+        return !$this->trashed() && $this->count > 0;
     }
 }

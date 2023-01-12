@@ -24,7 +24,7 @@ class MainController extends Controller
 
         foreach (['hit', 'recommend', 'new'] as $fieldName) {
             if($request->has($fieldName)) {
-                $productsQuery->where($fieldName, 1);
+                $productsQuery->$fieldName();
             }
         }
 

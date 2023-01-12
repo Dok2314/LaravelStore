@@ -55,6 +55,7 @@ class ProductController extends Controller
             'slug'          => $request->slug,
             'description'   => $request->description,
             'price'         => $request->price,
+            'count'         => $request->count,
             'category_id'   => $request->category_id,
             'image'         => $path,
             'hit'           => $request->hit,
@@ -69,11 +70,13 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  $productId
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($productId)
     {
+        $product = Product::withTrashed()->find($productId);
+
         return view('auth.products.show', compact('product'));
     }
 
@@ -114,6 +117,7 @@ class ProductController extends Controller
             'slug'          => $request->slug,
             'description'   => $request->description,
             'price'         => $request->price,
+            'count'         => $request->count,
             'category_id'   => $request->category_id,
             'image'         => $path,
             'hit'           => $request->hit,
