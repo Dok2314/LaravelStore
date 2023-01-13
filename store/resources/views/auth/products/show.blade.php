@@ -1,6 +1,6 @@
 @extends('auth.layouts.master')
 
-@section('title', 'Продукт ' . $product->name)
+@section('title', 'Продукт ' . $product->__('name'))
 
 @section('content')
     <div class="col-md-12">
@@ -28,8 +28,16 @@
                 <td>{{ $product->name }}</td>
             </tr>
             <tr>
+                <td>Название английское</td>
+                <td>{{ $product->name_en }}</td>
+            </tr>
+            <tr>
                 <td>Описание</td>
                 <td>{{ $product->description }}</td>
+            </tr>
+            <tr>
+                <td>Описание английское</td>
+                <td>{{ $product->description_en }}</td>
             </tr>
             <tr>
                 <td>Картинка</td>

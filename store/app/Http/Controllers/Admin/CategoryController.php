@@ -48,10 +48,11 @@ class CategoryController extends Controller
         }
 
         $category = Category::create([
-            'name'          => $request->name,
-            'slug'          => $request->slug,
-            'description'   => $request->description,
-            'image'         => $path,
+            'name'           => $request->name,
+            'name_en'        => $request->name_en,
+            'slug'           => $request->slug,
+            'description_en' => $request->description_en,
+            'image'          => $path,
         ]);
 
         session()->flash('success', 'Категория успешно добавлена: ' . $category->name);
@@ -100,10 +101,11 @@ class CategoryController extends Controller
         }
 
         $category->update([
-            'name'        => $request->name,
-            'slug'        => $request->slug,
-            'description' => $request->description,
-            'image'       => $path,
+            'name'           => $request->name,
+            'name_en'        => $request->name_en,
+            'slug'           => $request->slug,
+            'description_en' => $request->description_en,
+            'image'          => $path,
         ]);
 
         session()->flash('success', 'Категория успешно обновлена: ' . $category->name);

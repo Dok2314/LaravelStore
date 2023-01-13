@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Категория ' . $category->name)
+@section('title', 'Категория ' . $category->__('name'))
 
 @section('content')
     <h1>
-        {{ $category->name }} {{ $category->products ->count() }}
+        {{ $category->name }} {{ $category->products->count() }}
     </h1>
     <p>
         {{ $category->description }}

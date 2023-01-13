@@ -7,10 +7,10 @@
         <div class="panel">
             <a href="{{ route('category', $category->slug) }}">
                 <img src="{{ \Illuminate\Support\Facades\Storage::url($category->image) }}" style="width: 300px; height: 300px;">
-                <h2>{{ $category->name }}</h2>
+                <h2>{{ $category->__('name') }}</h2>
             </a>
             <p>
-                {{ $category->description }}
+                {{ $category->__('description') }}
             </p>
         </div>
     @endforeach

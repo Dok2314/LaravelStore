@@ -1,7 +1,7 @@
 @extends('auth.layouts.master')
 
 @isset($category)
-    @section('title', 'Редактировать категорию ' . $category->name)
+    @section('title', 'Редактировать категорию ' . $category->__('name'))
 @else
     @section('title', 'Создать категорию')
 @endisset
@@ -27,6 +27,14 @@
                 @endisset
                 @csrf
                 <div class="input-group row">
+                    <label for="name_en" class="col-sm-2 col-form-label">Название английское: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="name_en" id="name_en" style="margin-left: 20px; width: 500px;"
+                               value="{{ old('name_en') }}@isset($category){{ $category->name_en }}@endisset">
+                    </div>
+                </div>
+                <br>
+                <div class="input-group row">
                     <label for="name" class="col-sm-2 col-form-label">Название: </label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="name" id="name" style="margin-left: 20px; width: 500px;"
@@ -35,15 +43,15 @@
                     </div>
                 </div>
                 <br>
-                    <div class="input-group row">
-                        <label for="slug" class="col-sm-2 col-form-label">Slug: </label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="slug" id="slug" style="margin-left: 20px; width: 500px;"
-                                   value="{{ old('slug') }}@isset($category){{ $category->slug }}@endisset">
-                            @include('auth.layouts.error', ['fieldName' => 'slug'])
-                        </div>
+                <div class="input-group row">
+                    <label for="slug" class="col-sm-2 col-form-label">Slug: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="slug" id="slug" style="margin-left: 20px; width: 500px;"
+                               value="{{ old('slug') }}@isset($category){{ $category->slug }}@endisset">
+                        @include('auth.layouts.error', ['fieldName' => 'slug'])
                     </div>
-                    <br>
+                </div>
+                <br>
                 <div class="input-group row">
                     <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                     <div class="col-sm-6">
@@ -51,6 +59,15 @@
                                       rows="7">{{ old('description') }}@isset($category){{ $category->description }}@endisset
                             </textarea>
                         @include('auth.layouts.error', ['fieldName' => 'description'])
+                    </div>
+                </div>
+                <br>
+                <div class="input-group row">
+                    <label for="description_en" class="col-sm-2 col-form-label">Описание английское: </label>
+                    <div class="col-sm-6">
+                        <textarea name="description_en" id="description_en" cols="72"
+                                  rows="7">{{ old('description_en') }}@isset($category){{ $category->description_en }}@endisset
+                        </textarea>
                     </div>
                 </div>
                 <br>
