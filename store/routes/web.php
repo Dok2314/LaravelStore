@@ -42,7 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 
-    Route::get('/categories', [C\MainController::class, 'categories'])->name('categories');
+    Route::get('categories', [C\MainController::class, 'categories'])->name('categories');
+    Route::post('subscription/{product}', [C\MainController::class, 'subscribe'])->name('subscription');
 
     Route::get('/{category:slug}', [C\MainController::class, 'category'])->name('category');
 
