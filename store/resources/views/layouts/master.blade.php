@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Интернет Магазин: @yield('title')</title>
+    <title>@lang('main.online_shop'): @yield('title')</title>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
@@ -16,28 +16,32 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ route('index') }}">Интернет Магазин</a>
+            <a class="navbar-brand" href="{{ route('index') }}">
+                @lang('main.online_shop')
+            </a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="collapse navbar-collapse" style="width: 105%;">
             <ul class="nav navbar-nav">
-                <li @routeactive('index')><a href="{{ route('index') }}">Все товары</a></li>
-                <li @routeactive('categor*')><a href="{{ route('categories') }}">Категории</a>
+                <li @routeactive('index')><a href="{{ route('index') }}">@lang('main.all_products')</a></li>
+                <li @routeactive('categor*')><a href="{{ route('categories') }}">@lang('main.categories')</a>
                 </li>
-                <li @routeactive('basket')><a href="{{ route('basket') }}">В корзину</a></li>
-                <li ><a href="{{ route('reset_db') }}">Сбросить проект в начальное состояние</a></li>
+                <li @routeactive('basket')><a href="{{ route('basket') }}">@lang('main.to_basket')</a></li>
+                <li><a href="{{ route('reset_db') }}">@lang('main.reset_project')</a></li>
+                <li><a href="{{ route('locale', __('main.set_lang')) }}">@lang('main.set_lang')</a></li>
+
                 <li @routeactive('login')>
 
                     @guest
                         <a class="dropdown-item" href="{{ route('login') }}">
-                            {{ __('Войти') }}
+                            @lang('main.login')
                         </a>
                     @endguest
 
                     @auth
                         @if(auth()->user()->isAdmin())
-                            <li><a href="{{ route('home') }}">Панель администратора</a></li>
+                            <li><a href="{{ route('home') }}">@lang('main.admin_panel')</a></li>
                         @else
-                            <li><a href="{{ route('person.orders.index') }}">Мои заказы</a></li>
+                            <li><a href="{{ route('person.orders.index') }}">@lang('main.my_orders')</a></li>
                         @endif
                     @endauth
                 </li>
@@ -46,7 +50,7 @@
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                            {{ __('Выйти') }}
+                            @lang('main.logout')
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

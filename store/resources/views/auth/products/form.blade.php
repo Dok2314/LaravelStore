@@ -98,9 +98,9 @@
                 </div>
                     <hr>
                     @foreach([
-                        'hit' => 'Хит',
-                        'new' => 'Новинка',
-                        'recommend' => 'Рекомендуем'
+                        'hit' => __('main.product_types.hit'),
+                        'new' => __('main.product_types.new'),
+                        'recommend' => __('main.product_types.recommend'),
                     ] as $field => $title)
                         <div class="input-group row">
                             <div class="form-group">
