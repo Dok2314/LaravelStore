@@ -10,11 +10,12 @@ Auth::routes([
     'verify'  => false,
 ]);
 
+Route::get('locale/{locale}', [C\MainController::class, 'changeLocale'])->name('locale');
 Route::get('reset', [C\ResetController::class, 'reset'])->name('reset_db');
 
-Route::get('/', [C\MainController::class, 'index'])->name('index');
+Route::get('/', [C\MainController::class, 'index'])->middleware('set_locale')->name('index');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'set_locale']], function () {
 
     Route::group(['prefix' => 'person', 'as' => 'person.'], function () {
         Route::get('/orders', [C\Person\OrderController::class, 'index'])->name('orders.index');
@@ -42,7 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 
-    Route::get('/categories', [C\MainController::class, 'categories'])->name('categories');
+    Route::get('categories', [C\MainController::class, 'categories'])->name('categories');
+    Route::post('subscription/{product}', [C\MainController::class, 'subscribe'])->name('subscription');
 
     Route::get('/{category:slug}', [C\MainController::class, 'category'])->name('category');
 
