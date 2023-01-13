@@ -26,7 +26,7 @@
                                     <a href="{{ route('products.show', $product->id) }}">
                                         <img height="56px"
                                              src="{{ \Illuminate\Support\Facades\Storage::url($product->image) }}">
-                                        {{ $product->name }}
+                                        {{ $product->__('name') }}
                                     </a>
                                 </td>
                                 <td><span class="badge">1</span></td>

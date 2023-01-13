@@ -51,16 +51,18 @@ class ProductController extends Controller
         }
 
         $product = Product::create([
-            'name'          => $request->name,
-            'slug'          => $request->slug,
-            'description'   => $request->description,
-            'price'         => $request->price,
-            'count'         => $request->count,
-            'category_id'   => $request->category_id,
-            'image'         => $path,
-            'hit'           => $request->hit,
-            'new'           => $request->new,
-            'recommend'     => $request->recommend,
+            'name'             => $request->name,
+            'name_en'          => $request->name_en,
+            'slug'             => $request->slug,
+            'description'      => $request->description,
+            'description_en'   => $request->description_en,
+            'price'            => $request->price,
+            'count'            => $request->count,
+            'category_id'      => $request->category_id,
+            'image'            => $path,
+            'hit'              => $request->hit,
+            'new'              => $request->new,
+            'recommend'        => $request->recommend,
         ]);
 
         session()->flash('success', 'Товар успешно добавлен: ' . $product->name);
@@ -113,16 +115,18 @@ class ProductController extends Controller
         }
 
         $product->update([
-            'name'          => $request->name,
-            'slug'          => $request->slug,
-            'description'   => $request->description,
-            'price'         => $request->price,
-            'count'         => $request->count,
-            'category_id'   => $request->category_id,
-            'image'         => $path,
-            'hit'           => $request->hit,
-            'new'           => $request->new,
-            'recommend'     => $request->recommend,
+            'name'             => $request->name,
+            'name_en'          => $request->name_en,
+            'slug'             => $request->slug,
+            'description'      => $request->description,
+            'description_en'   => $request->description_en,
+            'price'            => $request->price,
+            'count'            => $request->count,
+            'category_id'      => $request->category_id,
+            'image'            => $path,
+            'hit'              => $request->hit,
+            'new'              => $request->new,
+            'recommend'        => $request->recommend,
         ]);
 
         session()->flash('success', 'Товар успешно обновлен: ' . $product->name);
