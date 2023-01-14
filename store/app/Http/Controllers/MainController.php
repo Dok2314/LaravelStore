@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductFilterRequest;
 use App\Http\Requests\SubscriptionRequest;
 use App\Models\Category;
+use App\Models\Currency;
 use App\Models\Product;
 use App\Models\Subscription;
 use Barryvdh\Debugbar\Facades\Debugbar;
@@ -70,5 +71,12 @@ class MainController extends Controller
         App::setLocale($locale);
 
         return redirect()->back()->with('success', __('main.language_was_changed'));
+    }
+
+    public function changeCurrency(Currency $currency)
+    {
+        session(['currency_slug' => $currency->slug]);
+
+        return redirect()->back();
     }
 }

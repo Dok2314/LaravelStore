@@ -14,7 +14,7 @@
         <img src="{{ \Illuminate\Support\Facades\Storage::url($product->image) }}" alt="">
         <div class="caption">
             <h3>{{ $product->__('name') }}</h3>
-            <p>{{ $product->price }} руб.</p>
+            <p>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</p>
             <p>
                 <form action="{{ route('basket-add', $product) }}" method="post">
                     @csrf

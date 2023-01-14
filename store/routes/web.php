@@ -11,6 +11,8 @@ Auth::routes([
 ]);
 
 Route::get('locale/{locale}', [C\MainController::class, 'changeLocale'])->name('locale');
+Route::get('currency/{currency}', [C\MainController::class, 'changeCurrency'])->name('currency');
+
 Route::get('reset', [C\ResetController::class, 'reset'])->name('reset_db');
 
 Route::get('/', [C\MainController::class, 'index'])->middleware('set_locale')->name('index');

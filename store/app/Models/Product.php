@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Translatable;
+use App\Services\CurrencyConversion;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -100,5 +101,17 @@ class Product extends Model
     public function isAvailable()
     {
         return !$this->trashed() && $this->count > 0;
+    }
+
+    /**
+     * Interact with the user's first name.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function price(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => round(CurrencyConversion::convert($value)),
+        );
     }
 }

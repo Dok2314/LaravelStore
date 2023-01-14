@@ -9,6 +9,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/starter-template.css" rel="stylesheet">
 </head>
@@ -58,11 +60,22 @@
                         </form>
                     @endauth
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ \App\Services\CurrencyConversion::getCurrencySymbol() }}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach (\App\Services\CurrencyConversion::getCurrencies() as $currency)
+                            <li>
+                                <a href="{{ route('currency', $currency) }}">
+                                    {{ $currency->symbol }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
             </ul>
-
-{{--            <ul class="nav navbar-nav navbar-right">--}}
-{{--                <li><a href="">Панель администратора</a></li>--}}
-{{--            </ul>--}}
         </div>
     </div>
 </nav>
