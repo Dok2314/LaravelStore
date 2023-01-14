@@ -4,7 +4,7 @@
 
 @section('content')
     <h1>{{ $product->__('name') }}</h1>
-    <p>Цена: <b>{{ $product->price }} руб.</b></p>
+    <p>Цена: <b>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</b></p>
     <img src="{{ \Illuminate\Support\Facades\Storage::url($product->image) }}">
     <p>{{ $product->description }}</p>
         @if($product->isAvailable())

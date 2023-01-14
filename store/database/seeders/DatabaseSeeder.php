@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             CategoriesTableSeeder::class,
             ProductTableSeeder::class,
+            CurrencySeeder::class,
         ]);
     }
 }
