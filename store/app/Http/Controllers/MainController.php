@@ -8,10 +8,8 @@ use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Product;
 use App\Models\Subscription;
-use Barryvdh\Debugbar\Facades\Debugbar;
-use Illuminate\Http\Request;
+use App\Services\CurrencyRates;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 
 class MainController extends Controller
 {
