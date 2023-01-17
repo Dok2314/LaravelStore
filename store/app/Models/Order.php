@@ -15,13 +15,20 @@ class Order extends Model
         'phone',
         'user_id',
         'email',
+        'currency_id',
+        'sum',
     ];
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')
-            ->withPivot('count')
+        return $this->belongsToMany(Product::class, 'order_product', 'order_id','product_id')
+            ->withPivot(['count', 'price'])
             ->withTimestamps();
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     public function calculateFullSum()
@@ -35,31 +42,38 @@ class Order extends Model
         return $sum;
     }
 
-    public static function getFullSum()
+    public function getFullSum()
     {
-        return session('full_order_sum', 0);
-    }
+        $sum = 0;
 
-    public static function changeFullSum($changeSum)
-    {
-        $sum = self::getFullSum() + $changeSum;
-        session(['full_order_sum' => $sum]);
+        foreach ($this->products as $product) {
+            $sum += $product->price * $product->countInOrder;
+        }
+
+        return $sum;
     }
 
     public function saveOrder($phone, $email)
     {
-        if($this->status == 0) {
-            $this->phone  = $phone;
-            $this->email  = $email;
-            $this->status = 1;
-            $this->save();
+        $this->phone  = $phone;
+        $this->email  = $email;
+        $this->status = 1;
+        $this->sum = $this->getFullSum();
 
-            session()->forget('orderId');
+        $products = $this->products;
 
-            return true;
+        $this->save();
+
+        foreach ($products as $productInOrder) {
+            $this->products()->attach($productInOrder, [
+                'count' => $productInOrder->countInOrder,
+                'price' => $productInOrder->price,
+            ]);
         }
 
-        return false;
+        session()->forget('order');
+
+        return true;
     }
 
     public function user()
@@ -70,10 +84,5 @@ class Order extends Model
     public function scopeActive($query)
     {
         return $query->where('status', 1);
-    }
-
-    public static function eraseOrderSum()
-    {
-        session()->forget('full_order_sum');
     }
 }
