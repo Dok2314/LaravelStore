@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Product;
 use App\Models\Subscription;
-use App\Services\CurrencyRates;
 use Illuminate\Support\Facades\App;
 
 class MainController extends Controller
@@ -38,9 +37,7 @@ class MainController extends Controller
 
     public function categories()
     {
-        $categories = Category::get();
-
-        return view('categories', compact('categories'));
+        return view('categories');
     }
 
     public function product(Category $category, Product $product)
