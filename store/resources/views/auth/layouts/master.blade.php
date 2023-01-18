@@ -40,6 +40,11 @@
                                 Товары
                             </a>
                         </li>
+                        <li @routeactive('properties.index')>
+                            <a href="{{ route('properties.index') }}">
+                                Свойства
+                            </a>
+                        </li>
                         <li @routeactive('home')>
                             <a href="{{ route('home') }}">
                                 Заказы
