@@ -17,12 +17,12 @@ class Basket
         $order = session('order');
 
         if(is_null($order) && $createOrder) {
-            $this->order = Order::create([
-                'user_id'       => auth()->id(),
-                'currency_id'   => CurrencyConversion::getCurrentCurrencyFromSession()->id,
-                'sum'           => rand(100, 200),
-                'price'         => 214124,
-            ]);
+            $data = [];
+
+            $data['user_id'] = auth()->id();
+            $data['currency_id'] = CurrencyConversion::getCurrentCurrencyFromSession()->id;
+
+            $this->order = new Order($data);
 
             session(['order' => $this->order]);
         } else {

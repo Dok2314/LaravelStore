@@ -35,13 +35,13 @@ class CurrencyConversion
 
         $originCurrency = self::$container[$originCurrencySlug];
 
-        if($originCurrency->slug != self::DEFAULT_CURRENCY_SLUG) {
+//        if($originCurrency->slug != self::DEFAULT_CURRENCY_SLUG) {
             //       if($originCurrency->rate == 0 || $originCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay()) {
 //            CurrencyRates::getRates();
 //            self::loadContainer();
 //            $originCurrency = self::$container[$originCurrencySlug];
 //        }
-        }
+//        }
 
 
         if(is_null($targetCurrencySlug)) {
@@ -50,10 +50,12 @@ class CurrencyConversion
 
         $targetCurrency = self::$container[$targetCurrencySlug];
 
+//        if($originCurrency->slug != self::DEFAULT_CURRENCY_SLUG) {
 //        if($targetCurrency->rate == 0 || $targetCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay()) {
 //            CurrencyRates::getRates();
 //            self::loadContainer();
 //            $targetCurrency = self::$container[$targetCurrencySlug];
+//        }
 //        }
 
         return $sum / $originCurrency->rate * $targetCurrency->rate;
