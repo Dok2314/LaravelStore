@@ -56,7 +56,7 @@ class PropertyOptionController extends Controller
      */
     public function show(Property $property, PropertyOption $propertyOption)
     {
-        //
+        return view('auth.property_options.show', compact('propertyOption'));
     }
 
     /**

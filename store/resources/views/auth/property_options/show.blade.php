@@ -1,10 +1,10 @@
 @extends('auth.layouts.master')
 
-@section('title', 'Свойство ' . $property->__('name'))
+@section('title', 'Вариант свойства ' . $propertyOption->__('name'))
 
 @section('content')
     <div class="col-md-12">
-        <h1>Свойство "{{ $property->__('name') }}"</h1>
+        <h1>Вариант свойства "{{ $propertyOption->__('name') }}"</h1>
         <table class="table">
             <tbody>
             <tr>
@@ -17,15 +17,19 @@
             </tr>
             <tr>
                 <td>ID</td>
-                <td>{{ $property->id }}</td>
+                <td>{{ $propertyOption->id }}</td>
+            </tr>
+            <tr>
+                <td>Свойство</td>
+                <td>{{ $propertyOption->property->name }}</td>
             </tr>
             <tr>
                 <td>Название</td>
-                <td>{{ $property->name }}</td>
+                <td>{{ $propertyOption->name }}</td>
             </tr>
             <tr>
                 <td>Название английское</td>
-                <td>{{ $property->name_en }}</td>
+                <td>{{ $propertyOption->name_en }}</td>
             </tr>
 {{--            <tr>--}}
 {{--                <td>Кол-во товаров</td>--}}
