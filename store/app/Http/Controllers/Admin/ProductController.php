@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -32,8 +33,9 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::get();
+        $properties = Property::get();
 
-        return view('auth.products.form', compact('categories'));
+        return view('auth.products.form', compact('categories', 'properties'));
     }
 
     /**
@@ -56,14 +58,14 @@ class ProductController extends Controller
             'slug'             => $request->slug,
             'description'      => $request->description,
             'description_en'   => $request->description_en,
-            'price'            => $request->price,
-            'count'            => $request->count,
             'category_id'      => $request->category_id,
             'image'            => $path,
             'hit'              => $request->hit,
             'new'              => $request->new,
             'recommend'        => $request->recommend,
         ]);
+
+        $product->properties()->sync($request->property_id);
 
         session()->flash('success', 'Товар успешно добавлен: ' . $product->name);
         return redirect()->route('products.index');
@@ -91,8 +93,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::get();
+        $properties = Property::get();
 
-        return view('auth.products.form', compact('product','categories'));
+        return view('auth.products.form', compact('product','categories','properties'));
     }
 
     /**
@@ -114,14 +117,14 @@ class ProductController extends Controller
             $path = $request->file('image')->store('products');
         }
 
+        $product->properties()->sync($request->property_id);
+
         $product->update([
             'name'             => $request->name,
             'name_en'          => $request->name_en,
             'slug'             => $request->slug,
             'description'      => $request->description,
             'description_en'   => $request->description_en,
-            'price'            => $request->price,
-            'count'            => $request->count,
             'category_id'      => $request->category_id,
             'image'            => $path,
             'hit'              => $request->hit,
