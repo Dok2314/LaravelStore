@@ -95,43 +95,44 @@
                     </div>
                 </div>
                 <br>
+
                 <div class="input-group row">
-                    <label for="price" class="col-sm-2 col-form-label">Цена: </label>
-                    @include('auth.layouts.error', ['fieldName' => 'price'])
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="price" id="price"
-                               value="{{ old('price') }}@isset($product){{ $product->price }}@endisset" style="width: 500px; margin-right: 60px;">
+                    <label for="property" class="col-sm-2 col-form-label">Свойства товара: </label>
+                    <div class="col-sm-6" style="margin-left: 25px; width: 400px;">
+                        <select name="property_id[]" multiple>
+                            @foreach($properties as $property)
+                                <option value="{{ $property->id }}"
+                                @isset($product)
+                                    @if($product->properties->contains($property->id))
+                                        selected
+                                    @endif
+                                @endisset
+                                >{{ $property->name }}</option>
+                            @endforeach
+                        </select>
+                        @include('auth.layouts.error', ['fieldName' => 'property_id[]'])
                     </div>
                 </div>
+
                 <br>
-                <div class="input-group row">
-                    <label for="count" class="col-sm-2 col-form-label">Количество: </label>
-                    @include('auth.layouts.error', ['fieldName' => 'count'])
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="count" id="count"
-                               value="{{ old('count') }}@isset($product){{ $product->count }}@endisset" style="width: 500px; margin-right: 10px;">
-                        <br>
-                    </div>
-                </div>
-                    <hr>
-                    @foreach([
-                        'hit' => __('main.product_types.hit'),
-                        'new' => __('main.product_types.new'),
-                        'recommend' => __('main.product_types.recommend'),
-                    ] as $field => $title)
-                        <div class="input-group row">
-                            <div class="form-group">
-                                <label for="{{ $field }}">{{ $title }}: </label>
-                                <input type="checkbox" name="{{ $field }}" id="{{ $field }}"
-                                       @if(isset($product) && $product->$field === 1)
-                                           checked="checked"
-                                       @endif
-                                >
-                            </div>
-                           @include('auth.layouts.error', ['fieldName' => $field])
+                @foreach([
+                    'hit' => __('main.product_types.hit'),
+                    'new' => __('main.product_types.new'),
+                    'recommend' => __('main.product_types.recommend'),
+                ] as $field => $title)
+                    <div class="input-group row">
+                        <div class="form-group">
+                            <label for="{{ $field }}">{{ $title }}: </label>
+                            <input type="checkbox" name="{{ $field }}" id="{{ $field }}"
+                                   @if(isset($product) && $product->$field === 1)
+                                       checked="checked"
+                                   @endif
+                            >
                         </div>
-                        <br>
-                    @endforeach
+                       @include('auth.layouts.error', ['fieldName' => $field])
+                    </div>
+                @endforeach
+                <hr>
                 <button class="btn btn-success">Сохранить</button>
             </div>
         </form>

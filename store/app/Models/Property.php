@@ -13,9 +13,9 @@ class Property extends Model
 
     protected $fillable = ['name', 'name_en'];
 
-    public function options()
+    public function propertyOptions()
     {
-        return $this->belongsToMany(PropertyOption::class);
+        return $this->hasMany(PropertyOption::class);
     }
 
     public function products()
