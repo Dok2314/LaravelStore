@@ -11,8 +11,8 @@
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/starter-template.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/starter-template.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -105,10 +105,10 @@
             </div>
             <div class="col-lg-6"><p>Самые популярные товары</p>
                 <ul>
-                    @foreach($bestProducts as $bestProduct)
+                    @foreach($bestSkus as $bestSku)
                         <li>
-                            <a href="{{ route('product', [$bestProduct->category->slug, $bestProduct->slug]) }}">
-                                {{ $bestProduct->name }}
+                            <a href="{{ route('sku', [$bestSku->product->category->slug, $bestSku->product->slug, $bestSku]) }}">
+                                {{ $bestSku->product->__('name') }}
                             </a>
                         </li>
                     @endforeach

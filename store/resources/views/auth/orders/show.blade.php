@@ -8,7 +8,7 @@
             <div class="justify-content-center">
                 <div class="panel">
                     <h1>Заказ №{{ $order->id }}</h1>
-                    <p>Заказчик: <b>{{ $order->name }}</b></p>
+                    <p>Заказчик: <b>{{ $order->user->name }}</b></p>
                     <p>Номер теелфона: <b>{{ $order->phone }}</b></p>
                     <table class="table table-striped">
                         <thead>
@@ -20,18 +20,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($products as $product)
+                        @foreach ($skus as $sku)
                             <tr>
                                 <td>
-                                    <a href="{{ route('products.show', $product->id) }}">
+                                    <a href="{{ route('sku', [$sku->product->category->slug, $sku->product->slug, $sku ]) }}">
                                         <img height="56px"
-                                             src="{{ \Illuminate\Support\Facades\Storage::url($product->image) }}">
-                                        {{ $product->__('name') }}
+                                             src="{{ \Illuminate\Support\Facades\Storage::url($sku->product->image) }}">
+                                        {{ $sku->product->__('name') }}
                                     </a>
                                 </td>
-                                <td><span class="badge">{{ $product->pivot->count }}</span></td>
-                                <td>{{ $product->pivot->price }} {{ $order->currency->symbol }}</td>
-                                <td>{{ $product->pivot->price * $product->pivot->count}} {{ $order->currency->symbol }}</td>
+                                <td><span class="badge">{{ $sku->pivot->count }}</span></td>
+                                <td>{{ $sku->pivot->price }} {{ $order->currency->symbol }}</td>
+                                <td>{{ $sku->pivot->price * $sku->pivot->count}} {{ $order->currency->symbol }}</td>
                             </tr>
                         @endforeach
                         <tr>

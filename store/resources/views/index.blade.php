@@ -42,9 +42,9 @@
     </form>
     <hr>
     <div class="row">
-        @foreach($products as $product)
-            @include('layouts.card', compact('product'))
+        @foreach($skus as $sku)
+            @include('layouts.card', compact('sku'))
         @endforeach
     </div>
-    {{ $products->withQueryString()->links('vendor.pagination.bootstrap-4') }}
+    {{ $skus->withQueryString()->links('vendor.pagination.bootstrap-4') }}
 @endsection

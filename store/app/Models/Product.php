@@ -34,15 +34,6 @@ class Product extends Model
             ->withTimestamps();
     }
 
-    public function getPriceForCount()
-    {
-        if(!is_null($this->pivot)) {
-            return $this->pivot->count * $this->price;
-        }
-
-        return $this->price;
-    }
-
     public function isHit(): bool
     {
         return $this->hit === 1;
@@ -107,11 +98,6 @@ class Product extends Model
     public function scopeRecommend($query)
     {
         return $query->where('recommend', 1);
-    }
-
-    public function isAvailable()
-    {
-        return !$this->trashed() && $this->count > 0;
     }
 
     /**

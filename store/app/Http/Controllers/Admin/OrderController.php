@@ -10,15 +10,15 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::active()->paginate(10);
+        $orders = Order::active()->orderByDesc('created_at')->paginate(10);
 
         return view('auth.orders.index', compact('orders'));
     }
 
     public function show(Order $order)
     {
-        $products = $order->products()->withTrashed()->get();
+        $skus = $order->skus()->withTrashed()->get();
 
-        return view('auth.orders.show', compact('order', 'products'));
+        return view('auth.orders.show', compact('order', 'skus'));
     }
 }
