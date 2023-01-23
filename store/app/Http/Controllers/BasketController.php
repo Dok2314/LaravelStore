@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\Basket;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Sku;
 use Illuminate\Http\Request;
 
 class BasketController extends Controller
@@ -29,24 +30,24 @@ class BasketController extends Controller
         return view('order', compact('order'));
     }
 
-    public function basketAdd(Product $product)
+    public function basketAdd(Sku $sku)
     {
-        $result = (new Basket(true))->addProduct($product);
+        $result = (new Basket(true))->addSku($sku);
 
         if($result) {
-            session()->flash('success', 'Добавлен товар: ' . $product->name);
+            session()->flash('success', 'Добавлен товар: ' . $sku->product->__('name'));
         } else {
-            session()->flash('warning', 'Товар: ' . $product->name . ' не доступен для заказа');
+            session()->flash('warning', 'Товар: ' . $sku->product->__('name') . ' не доступен для заказа');
         }
 
         return redirect()->route('basket');
     }
 
-    public function basketRemove(Product $product)
+    public function basketRemove(Sku $sku)
     {
-        (new Basket())->removeProduct($product);
+        (new Basket())->removeSku($sku);
 
-        session()->flash('warning', 'Удалён товар: ' . $product->name);
+        session()->flash('warning', 'Удалён товар: ' . $sku->product->name);
 
         return redirect()->route('basket');
     }

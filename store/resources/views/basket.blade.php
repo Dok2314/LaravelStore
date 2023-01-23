@@ -16,24 +16,24 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($order->products as $product)
+            @foreach($order->skus as $sku)
                 <tr>
                     <td>
-                        <a href="{{ route('product', [$product->category->slug, $product->slug]) }}">
-                            <img height="56px" src="{{ \Illuminate\Support\Facades\Storage::url($product->image) }}">
-                            {{ $product->__('name') }}
+                        <a href="{{ route('sku', [$sku->product->category->slug, $sku->product->slug, $sku]) }}">
+                            <img height="56px" src="{{ \Illuminate\Support\Facades\Storage::url($sku->product->image) }}">
+                            {{ $sku->product->__('name') }}
                         </a>
                     </td>
-                    <td><span class="badge">{{ $product->countInOrder }}</span>
+                    <td><span class="badge">{{ $sku->countInOrder }}</span>
                         <div class="btn-group form-inline">
-                            <form action="{{ route('basket-remove', $product) }}" method="post">
+                            <form action="{{ route('basket-remove', $sku) }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-danger" href="">
                                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                 </button>
                             </form>
 
-                            <form action="{{ route('basket-add', $product) }}" method="post">
+                            <form action="{{ route('basket-add', $sku) }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-success">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -41,8 +41,8 @@
                             </form>
                         </div>
                     </td>
-                    <td>{{ $product->price }} {{ $currencySymbol }}</td>
-                    <td>{{ $product->price * $product->countInOrder }} {{ $currencySymbol }}</td>
+                    <td>{{ $sku->price }} {{ $currencySymbol }}</td>
+                    <td>{{ $sku->price * $sku->countInOrder }} {{ $currencySymbol }}</td>
                 </tr>
             @endforeach
             <tr>
@@ -52,7 +52,7 @@
             </tbody>
         </table>
         <br>
-        @if($order->products->count() > 0)
+        @if($order->skus->count() > 0)
             <div class="btn-group pull-right" role="group">
                 <a type="button" class="btn btn-success" href="{{ route('basket-place') }}">Оформить заказ</a>
             </div>

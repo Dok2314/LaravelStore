@@ -1,3 +1,3 @@
-Dear client, product {{ $product->name }} is available in count: {{ $product->count }};
+Dear client, product {{ $sku->name }} is available in count: {{ $sku->count }};
 
-<a href="{{ route('product', [$product->category->slug, $product->slug]) }}">See more</a>
+<a href="{{ route('product', [$sku->category->slug, $sku->slug]) }}">See more</a>

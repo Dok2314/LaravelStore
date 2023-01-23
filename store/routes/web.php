@@ -38,20 +38,20 @@ Route::group(['middleware' => ['auth', 'set_locale']], function () {
     });
 
     Route::group(['prefix' => 'basket'], function () {
-        Route::post('/add/{product}', [C\BasketController::class, 'basketAdd'])->name('basket-add');
+        Route::post('/add/{sku}', [C\BasketController::class, 'basketAdd'])->name('basket-add');
 
         Route::group(['middleware' => 'basket_not_empty'], function () {
             Route::get('/', [C\BasketController::class, 'basket'])->name('basket');
             Route::get('/place', [C\BasketController::class, 'basketPlace'])->name('basket-place');
             Route::post('/confirm', [C\BasketController::class, 'basketConfirm'])->name('basket-confirm');
-            Route::post('/remove/{product}', [C\BasketController::class, 'basketRemove'])->name('basket-remove');
+            Route::post('/remove/{sku}', [C\BasketController::class, 'basketRemove'])->name('basket-remove');
         });
     });
 
     Route::get('categories', [C\MainController::class, 'categories'])->name('categories');
-    Route::post('subscription/{product}', [C\MainController::class, 'subscribe'])->name('subscription');
+    Route::post('subscription/{sku}', [C\MainController::class, 'subscribe'])->name('subscription');
 
     Route::get('/{category:slug}', [C\MainController::class, 'category'])->name('category');
 
-    Route::get('/{category:slug}/{product:slug}', [C\MainController::class, 'product'])->name('product');
+    Route::get('/{category:slug}/{product:slug}/{sku}', [C\MainController::class, 'sku'])->name('sku');
 });

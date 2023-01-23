@@ -5,6 +5,7 @@ namespace App\Classes;
 use App\Mail\OrderCreated;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Sku;
 use App\Services\CurrencyConversion;
 use Illuminate\Support\Facades\Mail;
 
@@ -37,23 +38,23 @@ class Basket
 
     public function countAvailable($updateCount = false)
     {
-        $products = collect([]);
+        $skus = collect([]);
 
-        foreach ($this->order->products as $orderProduct) {
-            $product = Product::find($orderProduct->id);
+        foreach ($this->order->skus as $orderSku) {
+            $sku = Sku::find($orderSku->id);
 
-            if($orderProduct->countInOrder > $product->count) {
+            if($orderSku->countInOrder > $sku->count) {
                 return false;
             }
 
             if($updateCount) {
-                $product->count -= $orderProduct->countInOrder;
-                $products->push($product);
+                $sku->count -= $orderSku->countInOrder;
+                $skus->push($sku);
             }
         }
 
         if($updateCount) {
-            $products->map->save();
+            $skus->map->save();
         }
 
         return true;
@@ -72,37 +73,37 @@ class Basket
         return true;
     }
 
-    public function removeProduct(Product $product)
+    public function removeSku(Sku $sku)
     {
-        if($this->order->products->contains($product)) {
-            $pivotRow = $this->order->products->where('id', $product->id)->first();
+        if($this->order->skus->contains($sku)) {
+            $pivotRow = $this->order->skus->where('id', $sku->id)->first();
 
             if($pivotRow->countInOrder < 2) {
-                $this->order->products->pop($product->id);
+                $this->order->skus->pop($sku->id);
             } else {
                 $pivotRow->countInOrder--;
             }
         }
     }
 
-    public function addProduct(Product $product)
+    public function addSku(Sku $sku)
     {
-        if($this->order->products->contains($product)) {
-            $pivotRow = $this->order->products->where('id', $product->id)->first();
+        if($this->order->skus->contains($sku)) {
+            $pivotRow = $this->order->skus->where('id', $sku->id)->first();
 
-            if($pivotRow->countInOrder >= $product->count) {
+            if($pivotRow->countInOrder >= $sku->count) {
                 return false;
             }
 
             $pivotRow->countInOrder++;
         } else {
-            if($product->count == 0) {
+            if($sku->count == 0) {
                 return false;
             }
 
-            $product->countInOrder = 1;
+            $sku->countInOrder = 1;
 
-            $this->order->products->push($product);
+            $this->order->skus->push($sku);
         }
 
         return true;
