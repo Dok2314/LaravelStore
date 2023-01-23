@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,7 +15,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-            $table->dropColumn(['sku_id']);
+            $table->dropForeign(['product_id']);
+            $table->dropColumn('product_id');
+
             $table->foreignId('sku_id')
                 ->after('status')
                 ->constrained('skus')
@@ -31,7 +34,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-            $table->dropColumn(['product_id']);
+            $table->dropForeign(['sku_id']);
+            $table->dropColumn('sku_id');
+
             $table->foreignId('product_id')
                 ->after('status')
                 ->constrained('products')

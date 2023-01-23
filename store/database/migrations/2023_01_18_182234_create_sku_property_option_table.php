@@ -13,18 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sku_property_option', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('property_option_id')
-                ->constrained('property_options')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-            $table->foreignId('sku_id')
-                ->constrained('skus')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('sku_property_option')) {
+            Schema::create('sku_property_option', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('property_option_id')
+                    ->constrained('property_options')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+                $table->foreignId('sku_id')
+                    ->constrained('skus')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
