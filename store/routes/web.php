@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth', 'set_locale']], function () {
             Route::get('/place', [C\BasketController::class, 'basketPlace'])->name('basket-place');
             Route::post('/confirm', [C\BasketController::class, 'basketConfirm'])->name('basket-confirm');
             Route::post('/remove/{sku}', [C\BasketController::class, 'basketRemove'])->name('basket-remove');
+            Route::post('coupon', [C\BasketController::class, 'setCoupon'])->name('set-coupon');
         });
     });
 

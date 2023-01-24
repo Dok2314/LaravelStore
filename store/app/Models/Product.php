@@ -99,16 +99,4 @@ class Product extends Model
     {
         return $query->where('recommend', 1);
     }
-
-    /**
-     * Interact with the user's first name.
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function price(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => round(CurrencyConversion::convert($value)),
-        );
-    }
 }

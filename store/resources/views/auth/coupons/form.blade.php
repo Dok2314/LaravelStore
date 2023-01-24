@@ -50,9 +50,11 @@
                                 <option value="">Без валюты</option>
                                 @foreach($currencies as $currency)
                                     <option value="{{ $currency->id }}"
-                                        @if($coupon && $coupon->currency)
-                                            {{ $currency->id == $coupon->currency->id ? 'selected' : '' }}
-                                        @endif
+                                        @isset($coupon)
+                                            @if($coupon->currency)
+                                                {{ $currency->id == $coupon->currency->id ? 'selected' : '' }}
+                                            @endif
+                                        @endisset
                                     >
                                         {{ $currency->slug }}
                                     </option>

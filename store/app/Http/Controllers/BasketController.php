@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Basket;
-use App\Models\Order;
-use App\Models\Product;
+use App\Http\Requests\AddCouponRequest;
 use App\Models\Sku;
 use Illuminate\Http\Request;
+use App\Models\Coupon;
 
 class BasketController extends Controller
 {
@@ -54,12 +54,34 @@ class BasketController extends Controller
 
     public function basketConfirm(Request $request)
     {
-        if((new Basket)->saveOrder($request->phone, $request->email)) {
+        $basket = new Basket;
+
+        if($basket->getOrder()->hasCoupon() && !$basket->getOrder()->coupon->availableForUse()) {
+            $basket->clearCoupon();
+            session()->flash('warning', 'Купон не доступен для использования!');
+            return redirect()->route('basket');
+        }
+
+        if($basket->saveOrder($request->phone, $request->email)) {
             session()->flash('success', 'Ваш заказ принят в разработку!');
         } else {
             session()->flash('warning', 'Товар не доступен для заказа!');
         }
 
         return redirect()->route('index');
+    }
+
+    public function setCoupon(AddCouponRequest $request)
+    {
+        $coupon = Coupon::where('code', $request->coupon)->first();
+
+        if($coupon->availableForUse()) {
+            (new Basket())->setCoupon($coupon);
+            session()->flash('success', 'Купон был успешно добавлен!');
+        } else {
+            session()->flash('warning', 'Купон не может быть использован!');
+        }
+
+        return redirect()->route('basket');
     }
 }

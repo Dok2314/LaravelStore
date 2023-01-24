@@ -27,15 +27,21 @@
                 <td>Описание</td>
                 <td>{{ $coupon->description }}</td>
             </tr>
-            @if($coupon->currency)
+            @isset($coupon->currency)
                 <tr>
                     <td>Валюта</td>
                     <td>{{ $coupon->currency->slug }}</td>
                 </tr>
-            @endif
+            @endisset
             <tr>
                 <td>Абсолютное значение</td>
                 <td>@if($coupon->isAbsolute()) Да @else Нет @endif</td>
+            </tr>
+            <tr>
+                <td>Скидка</td>
+                <td>
+                    {{ $coupon->value }} @if($coupon->isAbsolute()) {{ $coupon->currency->slug }} @else % @endif
+                </td>
             </tr>
             <tr>
                 <td>Использовать один раз</td>
@@ -45,10 +51,12 @@
                 <td>Использован</td>
                 <td>{{ $coupon->orders->count() }}</td>
             </tr>
-            <tr>
-                <td>Действителен до</td>
-                <td>{{ $coupon->expired_at->toDateString() }}</td>
-            </tr>
+            @isset($coupon->expired_at)
+                <tr>
+                    <td>Действителен до</td>
+                    <td>{{ $coupon->expired_at->toDateString() }}</td>
+                </tr>
+            @endisset
             </tbody>
         </table>
     </div>
