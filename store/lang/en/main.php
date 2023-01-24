@@ -23,4 +23,8 @@ return [
     'more'                       => 'More',
     'language_was_changed'       => 'Language was successfuly changed',
     'main_page'                  => 'Main page',
+    'coupon_types'  => [
+        'only_once'  => 'Coupon can only be used once',
+        'type'       => 'Absolute value',
+    ],
 ];

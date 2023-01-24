@@ -45,6 +45,11 @@
                                 Свойства
                             </a>
                         </li>
+                    <li @routeactive('coupons.index')>
+                        <a href="{{ route('coupons.index') }}">
+                            Купоны
+                        </a>
+                    </li>
                         <li @routeactive('home')>
                             <a href="{{ route('home') }}">
                                 Заказы

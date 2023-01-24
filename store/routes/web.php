@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth', 'set_locale']], function () {
         Route::resource('products', C\Admin\ProductController::class);
         Route::resource('products/{product}/skus', C\Admin\SkuController::class);
         Route::resource('properties', C\Admin\PropertyController::class);
+        Route::resource('coupons', C\Admin\CouponController::class);
         Route::resource('properties/{property}/property-options', C\Admin\PropertyOptionController::class);
 
         Route::group(['middleware' => 'is_admin'], function() {
