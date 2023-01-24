@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Services\CurrencyConversion;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,5 +37,17 @@ class Sku extends Model
         }
 
         return $this->price;
+    }
+
+    /**
+     * Interact with the user's first name.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function price(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => round(CurrencyConversion::convert($value)),
+        );
     }
 }
