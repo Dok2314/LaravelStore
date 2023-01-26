@@ -13,6 +13,7 @@ class Sku extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['product_id', 'count', 'price'];
+    protected $visible = ['id', 'count', 'price', 'product_name'];
 
     public function product()
     {
@@ -49,5 +50,15 @@ class Sku extends Model
         return Attribute::make(
             get: fn ($value) => round(CurrencyConversion::convert($value)),
         );
+    }
+
+    public function scopeAvailable($query)
+    {
+        return $query->where('count', '>', 0);
+    }
+
+    public function getProductNameAttribute()
+    {
+        return $this->product->name;
     }
 }

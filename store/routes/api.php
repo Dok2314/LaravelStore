@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api as Controllers;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', function (Request $request) {
+    $user = User::where('email', $request->email)->first();
+
+    $token = $user->createToken('token')->plainTextToken;
+
+    if(!$user) return response('User not found!', 404);
+
+    return $token;
+});
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('skus', [Controllers\SkusController::class, 'getSkus']);
 });
